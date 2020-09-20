@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Beneficiaires!{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h2 class="my-3">Visitez et appréciez le sourire de nos enfants !</h2>
+    <hr>
+    <div class="row">
+    {% for kid in kids %}
+        <div class="col-md-4">
+            <div class="card bg-light mb-3">
+                <div class="card-header text-center ">
+                    {{ kid.firstname }} {{ kid.lastname }}, <strong>{{ date('now').diff((date( kid.dateBith))).format('%y') }} ans</strong> <br>
+                    <small>étudie en {{ kid.class }}ième primaire</small>
+                </div>
+                <img src="{{kid.photo}}" alt="Image de l'enfant"
+                style="height:200px; width:100%; display:block;">
+            </div>
+            <div class="card-body text-center">
+                <h4 class="card-title">
+                    Un enfant calme et courageux!
+                </h4>
+                <p class="card-text">
+                    {{ kid.description }}
+                </p>
+                <a href="{{ path('beneficiary_show', {'id': kid.id}) }}" class="btn btn-primary">En savoir plus !</a>
+                <hr>
+            </div>
+        </div>    
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

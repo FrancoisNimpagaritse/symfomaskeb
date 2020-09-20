@@ -102,6 +102,11 @@ class Child
      */
     private $dateJoined;
 
+    /**
+     * @ORM\Column(type="string", length=500, nullable=true)
+     */
+    private $history;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -307,6 +312,18 @@ class Child
     public function setDateJoined(\DateTimeInterface $dateJoined): self
     {
         $this->dateJoined = $dateJoined;
+
+        return $this;
+    }
+
+    public function getHistory(): ?string
+    {
+        return $this->history;
+    }
+
+    public function setHistory(?string $history): self
+    {
+        $this->history = $history;
 
         return $this;
     }

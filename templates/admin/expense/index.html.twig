@@ -1,0 +1,38 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Administration dépenses{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <h2>Gestion des dépenses</h2>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Montant(&euro;)</th>
+                <th>Libellé</th>
+                <th>Catégorie</th>
+                <th>Saisi par</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for exp in expenses %}
+            <tr>
+                <td>{{exp.id}}</td>
+                <td>{{exp.dateExpense | date("d/m/Y")}}</td>
+                <td>{{exp.amount}}</td>
+                <td>{{exp.description}}</td>
+                <td>{{exp.categoryExpense.name}}</td>
+                <td>{{exp.editor.lastname}} {{exp.editor.firstname}}</td>
+                <td>
+                    <a href="#" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></a>
+                    <a href="#" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

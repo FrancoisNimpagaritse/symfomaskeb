@@ -10,6 +10,7 @@ use App\Entity\Expense;
 use App\Entity\CategoryIncome;
 use App\Entity\CategoryExpense;
 use App\Entity\Child;
+use App\Entity\Role;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -24,6 +25,21 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr-FR');
+
+        //Nous gérons les rôles
+        $adminRole = new Role();
+        $adminRole->setTitle('ROLE_ADMIN');
+        
+        $manager->persist($adminRole);
+
+        $adminUser = new User();
+        $adminUser->setFirstname('Francis')
+                  ->setLastname('Kundermann')
+                  ->setEmail('franimpa@yahoo.fr')
+                  ->setHash($this->encoder->encodePassword($adminUser, 'password'))
+                  ->addUserRole($adminRole);
+        
+        $manager->persist($adminUser);
 
         //Nous gérons les utilisateurs
         $users = [];

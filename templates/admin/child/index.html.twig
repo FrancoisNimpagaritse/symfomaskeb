@@ -1,0 +1,52 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Administration des bénéficiares{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <h2>Gestion des bénéficiares</h2>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Né(e) lé</th>
+                <th>Né(e) à</th>
+                <th>Nom père</th>
+                <th>Prénom Père</th>
+                <th>Nom mère</th>
+                <th>Prénom mère</th>
+                <th>Adresse</th>
+                <th>Commune</th>
+                <th>Classe actuelle</th>
+                <th>Date accueil</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for kid in kids %}
+            <tr>
+                <td>{{kid.id}}</td>
+                <td>{{kid.lastname}}</td>
+                <td>{{kid.firstname}}</td>
+                <td>{{kid.dateBith | date("d/m/Y")}}</td>
+                <td>{{kid.placeOfBirth}}</td>
+                <td>{{kid.lastnameFather}}</td>
+                <td>{{kid.firstnameFather}}</td>
+                <td>{{kid.lastnameMother}}</td>
+                <td>{{kid.firstnameMother}}</td>
+                <td>{{kid.adresseZone}}</td>
+                <td>{{kid.adresseCommune}}</td>
+                <td>{{kid.class}}</td>
+                <td>{{kid.datejoined |date("d/m/Y")}}</td>
+                <td>
+                    <a href="#" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></a>
+                    <a href="#" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
