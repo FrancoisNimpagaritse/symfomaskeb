@@ -4,7 +4,16 @@
 
 {% block body %}
 <div class="container-fluid">
-    <h2>Gestion des donateurs</h2>
+    <div class="row">
+        <div class="col-md-5" style="background:#578ec9; border-radius:7px; color:white;">   
+            <h4>Gestion des donateurs</h4>            
+        </div>
+        <div class="col-md-5"></div>
+        <div class="col">
+            <a href="{{ path('admin_donors_create') }}" class="btn btn-success">Nouveau donateur</a>
+        </div>
+    </div>    
+    <div style="height:15px;"></div>
     <table class="table table-hover">
         <thead>
             <tr>

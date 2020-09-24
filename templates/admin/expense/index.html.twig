@@ -4,16 +4,25 @@
 
 {% block body %}
 <div class="container-fluid">
-    <h2>Gestion des dépenses</h2>
-    <table class="table table-hover">
+    <div class="row">
+        <div class="col-md-5" style="background:#ee6c4d; border-radius:7px; color:white;">   
+            <h4>Gestion des dépenses</h4>                     
+        </div>
+        <div class="col-md-5"></div>
+        <div class="col">
+            <a href="{{ path('admin_expenses_create') }}" class="btn btn-success">Ajouter une dépense</a>
+        </div>
+    </div>    
+    <div style="height:15px;"></div>
+    <table class="table table-bordered table-hover">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Date</th>
-                <th>Montant(&euro;)</th>
                 <th>Libellé</th>
                 <th>Catégorie</th>
-                <th>Saisi par</th>
+                <th>Utilisateur</th>
+                <th>Montant(&euro;)</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -22,12 +31,12 @@
             <tr>
                 <td>{{exp.id}}</td>
                 <td>{{exp.dateExpense | date("d/m/Y")}}</td>
-                <td>{{exp.amount}}</td>
                 <td>{{exp.description}}</td>
                 <td>{{exp.categoryExpense.name}}</td>
                 <td>{{exp.editor.lastname}} {{exp.editor.firstname}}</td>
+                <td>{{exp.amount}}</td>
                 <td>
-                    <a href="#" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></a>
+                    <a href="{{ path('admin_expenses_edit', {'id':exp.id}) }}" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></a>
                     <a href="#" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
                 </td>
             </tr>

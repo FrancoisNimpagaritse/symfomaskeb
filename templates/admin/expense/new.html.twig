@@ -1,0 +1,22 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Ajout dépense{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 text-center" style="background:#ee6c4d; border-radius:5px; color:white;">   
+                <h4>Nouvelle transaction de dépense</h4>
+            </div>         
+        </div>
+        <br>
+        <div>
+            <div class="col-md-8">
+                {{form_start(form)}}
+                {{form_widget(form)}}
+                <button type="submit" class="btn btn-success">Enregister</button>
+                {{form_end(form)}}
+            </div>  
+        </div>   
+    </div>
+{% endblock %}

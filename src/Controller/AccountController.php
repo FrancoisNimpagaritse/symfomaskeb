@@ -100,6 +100,7 @@ class AccountController extends AbstractController
         if($form->isSubmitted() && $form->isValid())
         {
             $manager->persist($user);
+            
             $manager->flush();
 
             $this->addFlash(

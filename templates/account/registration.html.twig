@@ -1,18 +1,69 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <!-- Bootstrap core CSS -->
+        <link href="/admin_asset/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/admin_asset/css/style.css" rel="stylesheet">
+    </head>     
+    <body>
+        <div class="container-fluid">  
 
-{% block title %}eVisio - Inscription{% endblock %}
-
-{% block body %}
-         
-        <div class="container">
-            <div class="row">                
-                <div class="col-md-6 col-md-offset-3">
-                    <h3>Inscrivez vous pour accéder à l'application</h3>
-                    {{form_start(form)}}
-                    {{form_widget(form)}}
-                    <button type="submit" class="btn btn-success">Valider</button>
-                    {{form_end(form)}}
+            <nav class="navbar navbar-default">
+                <a class="navbar-brand" href="{{ path('homepage')}}">M<strong>askeb</strong></a>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                </button>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav mr-auto">                        
+                        <li><a href="{{ path('homepage') }}" class="nav-link"><i class="glyphicon glyphicon-eye-open"></i> Retour site</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right ml-auto">
+                        {% if app.user %}
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="accountDropdownLink">
+                                    <img src="" alt="">{{ app.user.firstname }}
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdownLink">
+                                    <a href="#" class="dropdown-item">Mon compte</a>
+                                    <a href="{{ path('account_profile') }}" class="dropdown-item">Modifier mon profil</a>                        
+                                    <div class="divider"></div>
+                                    <a href="{{ path('account_logout') }}" class="dropdown-item">Déconnexion</a>
+                                </div>
+                            </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a href=" {{ path('account_login') }}" class="nav-link">Login</a>
+                        </li>                        
+                        {% endif %}
+                    </ul>   
+                </div>     
+            </nav>
+            <header id="header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h1 class="text-center"><small>Maskeb - </small> {{ bodyTitle }}</h1>
+                        </div>                    
+                    </div>
+                </div>
+            </header>        
+            <div class="container">
+                <div class="row">                
+                    <div class="col-md-6 col-md-offset-3">
+                        <h3>Inscrivez vous pour accéder à l'application</h3>
+                        {{form_start(form)}}
+                        {{form_widget(form)}}
+                        <button type="submit" class="btn btn-success">Valider</button>
+                        {{form_end(form)}}
+                    </div>
                 </div>
             </div>
+        {% include 'admin/partials/footer.html.twig' %}            
+         
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <script src="/admin_asset/js/bootstrap.min.js"></script>
+            {% block javascripts %}{% endblock %}
         </div>
-{% endblock %}
+    </body>
+</html>

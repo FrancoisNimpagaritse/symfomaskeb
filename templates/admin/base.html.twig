@@ -4,8 +4,8 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <!-- Bootstrap core CSS -->
-        <link href="/css/bootstrap.min.css" rel="stylesheet">
-        <link href="/css/style.css" rel="stylesheet">
+        <link href="/admin_asset/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/admin_asset/css/style.css" rel="stylesheet">
         {% block stylesheets %}{% endblock %}
     </head>     
     <body>
@@ -13,12 +13,22 @@
             
             {% include 'admin/partials/header.html.twig' %}
 
+            {% for label, messages in app.flashes %}
+            <div class="container">
+                <div class="alert alert-{{label}}">
+                    {% for message in messages %}
+                        <p>{{ message | raw }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+
             {% block body %}{% endblock %}
     
             {% include 'admin/partials/footer.html.twig' %}            
          
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-            <script src="/js/bootstrap.min.js"></script>
+            <script src="/admin_asset/js/bootstrap.min.js"></script>
             {% block javascripts %}{% endblock %}
         </div>
     </body>

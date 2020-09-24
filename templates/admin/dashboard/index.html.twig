@@ -1,0 +1,158 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Maskeb - Dashboard{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row">
+                
+        <div class="col">
+            <div class="panel panel-default">
+                <div class="panel-heading " style="background:#578ec9; color:white;">
+                    <h2 class="panel-title">Synthèse rapide</h2>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-3">
+                    <div class="well dash-box">
+                        <h3><span class="glyphicon glyphicon-pencil"></span> {{stats.kids}}</h3>
+                        <h4>Enfants inscrits</h4>
+                    </div>
+                    </div>
+
+                    <div class="col-md-3">
+                    <div class="well dash-box">
+                        <h3><span class="glyphicon glyphicon-user"></span> {{stats.donors}}</h3>
+                        <h4>Bienfaiteurs</h4>
+                    </div>
+                    </div>
+
+                    <div class="col-md-3">
+                    <div class="well  dash-box">
+                        <h3><span class="glyphicon glyphicon-list-alt"></span> {{stats.incomes | number_format(2, ","," ")}} &euro;</h3>
+                        <h4>Collectes</h4>
+                    </div>
+                    </div>
+
+                    <div class="col-md-3">
+                    <div class="well  dash-box">
+                        <h3><span class="glyphicon glyphicon-stats"></span> {{stats.expenses | number_format(2, ","," ")}} &euro;</h3>
+                        <h4>Sorties de fonds</h4>
+                    </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="" style="background:#15ad8a; color:white; border-radius:7px;">
+                <h3 class="alert-heading my-3" ><i class="glyphicon glyphicon-upload"></i> Les grands donateurs</h3>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Donateur</th>
+                            <th>Adresse</th>
+                            <th>Montant donations (&euro;)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for donor in greatestDonors %}
+                        <tr>
+                            <td>{{donor.name}}</td>
+                            <td>{{donor.adresse}}</td>
+                            <td class="text-center">
+                                <span class="badge badge-dark">
+                                {{donor.donation | number_format(2, ","," ")}}
+                                </span>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="" style="background:#f0a951; color:white; border-radius:7px;">
+                <h3 class="alert-heading my-3"><i class="glyphicon glyphicon-download"></i> Les derniers donateurs</h3>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Donateur</th>
+                            <th>Adresse</th>
+                            <th>Montant des donations (&euro;)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for donor in leastDonors %}
+                        <tr>
+                            <td>{{donor.name}}</td>
+                            <td>{{donor.adresse}}</td>
+                            <td class="text-center">
+                                <span class="badge badge-dark">
+                                {{donor.donation | number_format(2, ","," ")}}
+                                </span>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="" style="background:#e35a24; color:white; border-radius:7px;">
+                <h3 class="alert-heading my-3"><i class="glyphicon glyphicon-upload"></i>Les grandes rubriques de dépenses</h3>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Rubrique dépense</th>
+                            <th>Montant des dépenses (&euro;)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for cat in greatestExpCats %}
+                        <tr>
+                            <td>{{cat.name}}</td>
+                            <td class="text-center">
+                                <span class="badge badge-dark">
+                                {{cat.expend | number_format(2, ","," ")}}
+                                </span>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="" style="background:#99948b; color:white; border-radius:7px;">
+                <h3 class="alert-heading my-3"><i class="glyphicon glyphicon-download"></i> Les petites rubriques de dépenses</h3>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Rubrique dépense</th>
+                            <th>Montant des dépenses (&euro;)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for cat in leastExpCats %}
+                        <tr>
+                            <td>{{cat.name}}</td>
+                            <td class="text-center">
+                                <span class="badge badge-dark">
+                                {{cat.expend | number_format(2, ","," ")}}
+                                </span>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -4,8 +4,17 @@
 
 {% block body %}
 <div class="container-fluid">
-    <h2>Gestion des catégorie de ressources</h2>
-    <table class="table table-hover">
+    <div class="row">
+        <div class="col-md-5" style="background:#578ec9; border-radius:7px; color:white;">   
+            <h4>Gestion des catégorie de ressources</h4>
+        </div>
+        <div class="col-md-5"></div>
+        <div class="col">
+            <a href="{{ path('admin_categoryincome_create') }}" class="btn btn-success">Nouvelle catégorie</a>
+        </div>
+    </div>    
+    <div style="height:15px;"></div>
+    <table class="table table-bordered table-hover">
         <thead>
             <tr>
                 <th>Id</th>
