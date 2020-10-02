@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Donor;
 use App\Form\DonorType;
 use App\Repository\DonorRepository;
+use App\Service\Paginator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,15 +14,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminDonorController extends AbstractController
 {
     /**
-     * @Route("/admin/donors", name="admin_donors_index")
+     * @Route("/admin/donors/{page<\d+>?1}", name="admin_donors_index")
      */
-    public function index(DonorRepository $repo)
+    public function index(DonorRepository $repo, $page, Paginator $paginator)
     {
-        $donors = $repo->findAll();
-
+        $paginator->setEntityClass(Donor::class)
+                  ->setPage($page);
+        
         return $this->render('admin/donor/index.html.twig', [
                 'bodyTitle' => 'Donateurs',
-                'donors'      => $donors
+                'paginator'      => $paginator
         ]);
     }
 
@@ -91,5 +93,34 @@ class AdminDonorController extends AbstractController
             'donor'   =>  $donor
             ]);
         
+    }
+
+    /**
+     * Permet de supprimer un donateur
+     * 
+     * @Route("/admin/donors/delete/{id}", name="admin_donors_delete")
+     * 
+     * @return Response
+     */
+    public function delete(Donor $donor, EntityManagerInterface $manager)
+    {
+        if(count($donor->getIncomes()) > 0) {
+            $this->addFlash(
+                'danger',
+                "Attention ! Vous ne pouvez pas supprimer le donateur <strong>{$donor->getName()}</strong> car il a déjà versé des donations !!!"
+            );
+        } else {
+
+            $manager->remove($donor);
+    
+            $manager->flush();
+    
+            $this->addFlash(
+                'success',
+                "Le donateur <strong>{$donor->getName()}</strong> a bien été supprimé !"
+            );
+        }
+
+        return $this->redirectToRoute("admin_donors_index");
     }
 }

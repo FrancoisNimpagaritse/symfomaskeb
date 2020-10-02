@@ -10,7 +10,7 @@
         </div>
         <div class="col-md-5"></div>
         <div class="col">
-            <a href="{{ path('admin_donors_create') }}" class="btn btn-success">Nouveau donateur</a>
+            <a href="{{ path('admin_donors_create') }}" class="btn btn-primary">Nouveau donateur</a>
         </div>
     </div>    
     <div style="height:15px;"></div>
@@ -28,7 +28,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for donor in donors %}
+            {% for donor in paginator.data %}
             <tr>
                 <td>{{donor.id}}</td>
                 <td>{{donor.name}}</td>
@@ -38,12 +38,31 @@
                 <td>{{donor.email}}</td>
                 <td>{{donor.datejoined |date("d/m/Y")}}</td>
                 <td>
-                    <a href="#" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></a>
-                    <a href="#" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+                    <a href="{{ path('admin_donors_edit', {'id':donor.id}) }}" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></a>
+                    <a href="{{ path('admin_donors_delete', {'id':donor.id}) }}" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+     <div class="text-center">
+        {% set page = paginator.page %} {#Twig va transformer paginator.page en paginator.getPage()#}
+        {% set pages = paginator.pages %}
+        <ul class="pagination">
+            <li class="{% if page == 1 %} disabled {% endif %}">
+                <a href="{{ path('admin_categoryexpense_index', {'page': page - 1})}}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+            </li>
+            {% for i in 1.. pages %}
+            <li class=" {% if page == i %} active {% endif %}">
+                <a href="{{ path('admin_categoryexpense_index', {'page':i})}}">{{i}} <span  class="sr-only">(current)</span></a>
+            </li>
+            {% endfor %}            
+            <li class="{% if page == pages %} disabled {% endif %}">
+                <a href="{{ path('admin_categoryexpense_index', {'page': page + 1})}}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
 {% endblock %}

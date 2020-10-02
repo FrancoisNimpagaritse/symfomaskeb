@@ -50,9 +50,14 @@ class Donor
     private $dateJoined;
 
     /**
-     * @ORM\OneToMany(targetEntity=Income::class, mappedBy="donorId")
+     * @ORM\OneToMany(targetEntity=Income::class, mappedBy="donor")
      */
     private $incomes;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $geolocalisation;
 
     public function __construct()
     {
@@ -163,6 +168,18 @@ class Donor
                 $income->setDonor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getGeolocalisation(): ?string
+    {
+        return $this->geolocalisation;
+    }
+
+    public function setGeolocalisation(?string $geolocalisation): self
+    {
+        $this->geolocalisation = $geolocalisation;
 
         return $this;
     }

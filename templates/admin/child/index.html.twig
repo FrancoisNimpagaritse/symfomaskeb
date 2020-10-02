@@ -10,7 +10,7 @@
         </div>
         <div class="col-md-5"></div>
         <div class="col">            
-            <a href="{{ path('admin_beneficiaries_create') }}" class="btn btn-success">Inscrire un enfant</a>
+            <a href="{{ path('admin_beneficiaries_create') }}" class="btn btn-primary">Inscrire un enfant</a>
         </div>
     </div>
     <div style="height:15px;"></div>
@@ -23,7 +23,7 @@
                 <th>Né(e) lé</th>
                 <th>Né(e) à</th>
                 <th>Nom père</th>
-                <th>Prénom Père</th>
+                <th>Prénom père</th>
                 <th>Nom mère</th>
                 <th>Prénom mère</th>
                 <th>Adresse</th>
@@ -34,7 +34,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for kid in kids %}
+            {% for kid in paginator.data %}
             <tr>
                 <td>{{kid.id}}</td>
                 <td>{{kid.lastname}}</td>
@@ -57,5 +57,24 @@
             {% endfor %}
         </tbody>
     </table>
+     <div class="text-center">
+        {% set page = paginator.page %} {#Twig va transformer paginator.page en paginator.getPage()#}
+        {% set pages = paginator.pages %}
+        <ul class="pagination">
+            <li class="{% if page == 1 %} disabled {% endif %}">
+                <a href="{{ path('admin_categoryexpense_index', {'page': page - 1})}}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+            </li>
+            {% for i in 1.. pages %}
+            <li class=" {% if page == i %} active {% endif %}">
+                <a href="{{ path('admin_categoryexpense_index', {'page':i})}}">{{i}} <span  class="sr-only">(current)</span></a>
+            </li>
+            {% endfor %}            
+            <li class="{% if page == pages %} disabled {% endif %}">
+                <a href="{{ path('admin_categoryexpense_index', {'page': page + 1})}}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
 {% endblock %}

@@ -30,7 +30,7 @@ class CategoryIncome
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity=Income::class, mappedBy="categoryIncomeId")
+     * @ORM\OneToMany(targetEntity=Income::class, mappedBy="categoryIncome")
      */
     private $incomes;
 

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Child;
 use App\Form\ChildType;
 use App\Repository\ChildRepository;
+use App\Service\Paginator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,14 +14,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminChildController extends AbstractController
 {
     /**
-     * @Route("/admin/beneficiaries", name="admin_beneficiaries_index")
+     * @Route("/admin/beneficiaries/{page<\d+>?1}", name="admin_beneficiaries_index")
      */
-    public function index(ChildRepository $repo)
+    public function index(ChildRepository $repo, $page, Paginator $paginator)
     {
-        $kids = $repo->findAll();
+        $paginator->setEntityClass(Child::class)
+                  ->setPage($page);
+        
         return $this->render('admin/child/index.html.twig', [
             'bodyTitle' => 'Bénéficiaires',
-            'kids'      => $kids
+            'paginator' => $paginator
         ]);
     }
 

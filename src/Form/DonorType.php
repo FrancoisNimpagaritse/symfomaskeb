@@ -30,7 +30,7 @@ class DonorType extends AbstractType
             ->add('adresse', TextType::class, [
                 'label' => 'Adressse',
                 'attr' => [
-                    'placeholder' => 'L\'adresse coomplète'
+                    'placeholder' => 'L\'adresse complète'
                 ]
             ])
             ->add('phone', TextType::class, [
@@ -47,8 +47,15 @@ class DonorType extends AbstractType
             ])
             ->add('dateJoined', DateType::class, [
                 'label' => 'Date d\'enregistrement',
+                'widget' => 'single_text',
                 'attr' => [
                     'placeholder' => 'Donateur ou contribuable'
+                ]
+            ])
+            ->add('geolocalisation', TextType::class, [
+                'label' => 'Pays',
+                'attr' => [
+                    'placeholder' => 'Pays de résidence'
                 ]
             ])
         ;

@@ -18,7 +18,9 @@ class IncomeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dateIncome', DateType::class)
+            ->add('dateIncome', DateType::class, [
+                'widget' => 'single_text'
+                ])
             ->add('description', TextType::class)
             ->add('amount', MoneyType::class)
             ->add('categoryIncome', EntityType::class, [

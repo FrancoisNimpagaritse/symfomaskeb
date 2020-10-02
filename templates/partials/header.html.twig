@@ -1,3 +1,4 @@
+
 <header class="site-navbar js-sticky-header site-navbar-target" role="banner">
 
       <div class="container">
@@ -12,10 +13,10 @@
 
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
                   <li><a href="{{ path('homepage')}}" class="nav-link">Accueil</a></li>
-                  <li><a href="#about-section" class="nav-link">Nous découvrir</a></li>
-                  <li><a href="#donate-section" class="nav-link">Faire un don</a></li>
-                  <li><a href="#contact-section" class="nav-link">Nous contacter</a></li>
-                  <li><a href="#blog-section" class="nav-link">Blog</a></li>
+                  <li><a href="{{ path('beneficiaries_index')}}" class="nav-link">Nos enfants</a></li>
+                  <!-- <li><a href="#donate-section" class="nav-link">Faire un don</a></li> -->
+                  <li><a href="{{ path('contacts_index') }}" class="nav-link">Nous contacter</a></li>
+                  <!-- <li><a href="#blog-section" class="nav-link">Blog</a></li> -->
                   <li><a href="{{ path('account_registration') }}" class="nav-link">Inscription</a></li>
                   <li><a href="{{ path('account_login') }}" class="nav-link">Connexion</a></li>
                 </ul>

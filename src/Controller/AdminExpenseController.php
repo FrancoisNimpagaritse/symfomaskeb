@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Expense;
+use App\Entity\RechercheExpense;
 use App\Form\ExpenseType;
+use App\Form\RechercheExpenseType;
 use App\Repository\ExpenseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,13 +17,19 @@ class AdminExpenseController extends AbstractController
     /**
      * @Route("/admin/expenses", name="admin_expenses_index")
      */
-    public function index(ExpenseRepository $repo)
+    public function index(Request $request, ExpenseRepository $repo)
     {
-        $expenses = $repo->findAll();
+        $rechercheExpense = new RechercheExpense();
+        
+        $form = $this->createForm(RechercheExpenseType::class, $rechercheExpense);
+        $form->handleRequest($request);
+
+        $expenses = $repo->findAllByDate($rechercheExpense);
 
         return $this->render('admin/expense/index.html.twig', [
             'bodyTitle' => 'Dépenses',
-            'expenses' => $expenses
+            'expenses' => $expenses,
+            'form'     => $form->createView()
         ]);
     }
 
@@ -92,5 +100,26 @@ class AdminExpenseController extends AbstractController
             'form'  => $form->createView(),
             'exp'   => $exp
         ]);
+    }
+
+    /**
+     * Permet de supprimer une dépense
+     * 
+     * @Route("/admin/expenses/delete/{id}", name="admin_expenses_delete")
+     * 
+     * @return Response
+     */
+    public function delete(Expense $exp, EntityManagerInterface $manager)
+    {
+        $manager->remove($exp);
+
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            "La dépense numéro <strong> {$exp->getId()} </strong> a bien été supprimée !"
+        );
+
+        return $this->redirectToRoute('admin_expenses_index');
     }
 }

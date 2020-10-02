@@ -17,7 +17,9 @@ class ExpenseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dateExpense', DateType::class)
+            ->add('dateExpense', DateType::class, [                
+                'widget' => 'single_text'
+            ])
             ->add('description',TextType::class)
             ->add('amount', MoneyType::class)
             ->add('categoryExpense', EntityType::class, [

@@ -10,7 +10,7 @@
         </div>
         <div class="col-md-5"></div>
         <div class="col">
-            <a href="{{ path('admin_categoryincome_create') }}" class="btn btn-success">Nouvelle catégorie</a>
+            <a href="{{ path('admin_categoryincome_create') }}" class="btn btn-primary">Nouvelle catégorie</a>
         </div>
     </div>    
     <div style="height:15px;"></div>
@@ -23,17 +23,36 @@
             </tr>
         </thead>
         <tbody>
-            {% for cat in catIncomes %}
+            {% for cat in paginator.data %}
             <tr>
                 <td>{{cat.id}}</td>
                 <td>{{cat.name}}</td>
                 <td>
-                    <a href="#" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></a>
-                    <a href="#" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+                    <a href="{{ path('admin_categoryincome_edit', {'id':cat.id}) }}" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></a>
+                    <a href="{{ path('admin_categoryincome_delete', {'id':cat.id}) }}" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+    <div class="text-center">
+        {% set page = paginator.page %} {#Twig va transformer paginator.page en paginator.getPage()#}
+        {% set pages = paginator.pages %}
+        <ul class="pagination">
+            <li class="{% if page == 1 %} disabled {% endif %}">
+                <a href="{{ path('admin_categoryexpense_index', {'page': page - 1})}}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+            </li>
+            {% for i in 1.. pages %}
+            <li class=" {% if page == i %} active {% endif %}">
+                <a href="{{ path('admin_categoryexpense_index', {'page':i})}}">{{i}} <span  class="sr-only">(current)</span></a>
+            </li>
+            {% endfor %}            
+            <li class="{% if page == pages %} disabled {% endif %}">
+                <a href="{{ path('admin_categoryexpense_index', {'page': page + 1})}}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
 {% endblock %}

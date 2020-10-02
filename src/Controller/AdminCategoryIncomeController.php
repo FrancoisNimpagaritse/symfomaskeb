@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
+use App\Service\Paginator;
 use App\Entity\CategoryIncome;
 use App\Form\CategoryIncomeType;
-use App\Repository\CategoryIncomeRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\CategoryIncomeRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,14 +14,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminCategoryIncomeController extends AbstractController
 {
     /**
-     * @Route("/admin/categoryincome", name="admin_categoryincome_index")
+     * @Route("/admin/categoryincome/{page<\d+>?1}", name="admin_categoryincome_index")
      */
-    public function index(CategoryIncomeRepository $repo)
+    public function index(CategoryIncomeRepository $repo, $page, Paginator $paginator)
     {
-        $catIncomes = $repo->findAll();
+        $paginator->setEntityClass(CategoryIncome::class)
+                  ->setPage($page);
+        
         return $this->render('admin/categoryincome/index.html.twig', [
             'bodyTitle' => 'Catégories ressources',
-            'catIncomes' => $catIncomes
+            'paginator' => $paginator
         ]);
     }
 
@@ -83,5 +86,34 @@ class AdminCategoryIncomeController extends AbstractController
             'form'  =>  $form->createView(),
             'cat'   =>  $catIncome
         ]);
+    }
+
+    /**
+     * Permet de supprimer une rubrique de recette
+     * 
+     * @Route("/admin/categoryincome/delete/{id}", name="admin_categoryincome_delete")
+     * 
+     * @return Response
+     */
+    public function delete(CategoryIncome $catIncome, EntityManagerInterface $manager)
+    {
+        if(count($catIncome->getIncomes()) > 0) {
+            $this->addFlash(
+                'danger',
+                "Attention ! Vous ne pouvez pas supprimer la catégorie <strong>{$catIncome->getName()}</strong> car elle possède déjà des transactions de recettes !!!"
+            );
+        } else {
+
+            $manager->remove($catIncome);
+    
+            $manager->flush();
+    
+            $this->addFlash(
+                'success',
+                "La catégorie <strong>{$catIncome->getName()}</strong> a bien été supprimée !"
+            );
+        }
+
+        return $this->redirectToRoute("admin_categoryincome_index");
     }
 }

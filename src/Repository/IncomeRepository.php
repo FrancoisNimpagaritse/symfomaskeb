@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Income;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\RechercheIncome;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Income|null find($id, $lockMode = null, $lockVersion = null)
@@ -22,19 +23,27 @@ class IncomeRepository extends ServiceEntityRepository
     // /**
     //  * @return Income[] Returns an array of Income objects
     //  */
-    /*
-    public function findByExampleField($value)
+   
+    public function findAllByDate(RechercheIncome $rechercheIncome)
     {
-        return $this->createQueryBuilder('i')
-            ->andWhere('i.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('i.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $qry =  $this->createQueryBuilder('i')->orderBy('i.dateIncome', 'DESC');
+
+            if($rechercheIncome->getStartDate())
+            {
+                $qry = $qry->andWhere('i.dateIncome >= :min')
+                            ->setParameter(':min', $rechercheIncome->getStartDate());
+            }
+            
+            if($rechercheIncome->getEndDate())
+            {
+                $qry = $qry->andWhere('i.dateIncome <= :max')
+                            ->setParameter(':max', $rechercheIncome->getEndDate());
+            }
+            
+        return $qry->getQuery()
+                    ->getResult();
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Income

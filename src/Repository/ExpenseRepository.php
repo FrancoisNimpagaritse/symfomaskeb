@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Expense;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\RechercheExpense;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Expense|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,22 +20,29 @@ class ExpenseRepository extends ServiceEntityRepository
         parent::__construct($registry, Expense::class);
     }
 
+    
     // /**
     //  * @return Expense[] Returns an array of Expense objects
     //  */
-    /*
-    public function findByExampleField($value)
+    public function findAllByDate(RechercheExpense $rechercheExpense)
     {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('e.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $qry =  $this->createQueryBuilder('i')->orderBy('i.dateExpense', 'DESC');
+
+            if($rechercheExpense->getStartDate())
+            {
+                $qry = $qry->andWhere('i.dateExpense >= :min')
+                            ->setParameter(':min', $rechercheExpense->getStartDate());
+            }
+            
+            if($rechercheExpense->getEndDate())
+            {
+                $qry = $qry->andWhere('i.dateExpense <= :max')
+                            ->setParameter(':max', $rechercheExpense->getEndDate());
+            }
+            
+        return $qry->getQuery()
+                    ->getResult();
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Expense

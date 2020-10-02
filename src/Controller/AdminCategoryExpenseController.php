@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\Paginator;
 use App\Entity\CategoryExpense;
 use App\Form\CategoryExpenseType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,15 +14,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminCategoryExpenseController extends AbstractController
 {
     /**
-     * @Route("/admin/categoryexpense", name="admin_categoryexpense_index")
+     * @Route("/admin/categoryexpense/{page<\d+>?1}", name="admin_categoryexpense_index")
      */
-    public function index(CategoryExpenseRepository $repo)
+    public function index(CategoryExpenseRepository $repo, $page, Paginator $paginator)
     {
-        $catExps = $repo->findAll();
+        $paginator->setEntityClass(CategoryExpense::class)
+                  ->setPage($page);        
 
         return $this->render('admin/categoryexpense/index.html.twig', [
-            'bodyTitle' => 'Rubriques dépenses',
-            'catExps' => $catExps
+            'bodyTitle' => 'Rubriques dépenses',            
+            'paginator'    => $paginator
         ]);
     }
 
@@ -55,7 +57,7 @@ class AdminCategoryExpenseController extends AbstractController
             'bodyTitle' => 'Rubriques dépenses',
             'form'  => $form->createView()
         ]);
-    }
+    }    
 
     /**
      * Permet de modifier une rubrique dépense
@@ -86,5 +88,34 @@ class AdminCategoryExpenseController extends AbstractController
             'form'  => $form->createView(),
             'catExp' => $catExpense
         ]);
+    }
+
+    /**
+     * Permet de supprimer une rubrique de dépense
+     * 
+     * @Route("/admin/categoryexpense/delete/{id}", name="admin_categoryexpense_delete")
+     * 
+     * @return Response
+     */
+    public function delete(CategoryExpense $catExpense, EntityManagerInterface $manager)
+    {
+        if(count($catExpense->getExpenses()) > 0) {
+            $this->addFlash(
+                'danger',
+                "Attention ! Vous ne pouvez pas supprimer la rubrique <strong>{$catExpense->getName()}</strong> car elle possède déjà des transactions de dépense !!!"
+            );
+        } else {
+
+            $manager->remove($catExpense);
+    
+            $manager->flush();
+    
+            $this->addFlash(
+                'success',
+                "La rubrique <strong>{$catExpense->getName()}</strong> a bien été supprimée !"
+            );
+        }
+
+        return $this->redirectToRoute("admin_categoryexpense_index");
     }
 }

@@ -4,13 +4,29 @@
 
 {% block body %}
 <div class="container-fluid">
+{{form_start(form)}}
+    <div class="row no gutters align-items-center text-center">
+        <div class="col-md-2">
+            {{form_row(form.startDate)}}
+        </div>
+        <div class="col-md-2">
+            {{form_row(form.endDate)}}
+        </div>
+        <div class="col-md-1"  style=" vertical-align:center">
+            <br>
+            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
+        </div>
+    </div>
+{{form_end(form)}}
+</div>
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-5" style="background:#ee6c4d; border-radius:7px; color:white;">   
             <h4>Gestion des dépenses</h4>                     
         </div>
         <div class="col-md-5"></div>
         <div class="col">
-            <a href="{{ path('admin_expenses_create') }}" class="btn btn-success">Ajouter une dépense</a>
+            <a href="{{ path('admin_expenses_create') }}" class="btn btn-primary">Ajouter une dépense</a>
         </div>
     </div>    
     <div style="height:15px;"></div>
@@ -37,7 +53,7 @@
                 <td>{{exp.amount}}</td>
                 <td>
                     <a href="{{ path('admin_expenses_edit', {'id':exp.id}) }}" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></a>
-                    <a href="#" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+                    <a href="{{ path('admin_expenses_delete', {'id':exp.id}) }}" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
                 </td>
             </tr>
             {% endfor %}
