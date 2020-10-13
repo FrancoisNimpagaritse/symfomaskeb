@@ -6,6 +6,7 @@ use App\Repository\CategoryIncomeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryIncomeRepository::class)
@@ -21,6 +22,7 @@ class CategoryIncome
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=2, minMessage="Le nom doit avoir aumoins deux caractères!")
      */
     private $name;
 

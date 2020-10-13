@@ -6,6 +6,7 @@ use App\Repository\DonorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=DonorRepository::class)
@@ -21,11 +22,13 @@ class Donor
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le nom est obligatoire !")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le type est obligatoire !")
      */
     private $type;
 
@@ -41,6 +44,7 @@ class Donor
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Email(message="Veuillez renseigner un email valide !")
      */
     private $email;
 

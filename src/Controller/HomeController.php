@@ -2,18 +2,22 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Service\Stats;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
     /**
      * @Route("/", name="homepage")
      */
-    public function index()
+    public function index(Stats $statsService)
     {
+        $stats = $statsService->getStats();
+
         return $this->render('home/index.html.twig', [
-            'bodyTitle' => 'Accueil'
+            'bodyTitle' => 'Accueil',
+            'stats'     => $stats
         ]);
     }
 }

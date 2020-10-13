@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ExpenseRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ExpenseRepository::class)
@@ -29,6 +30,7 @@ class Expense
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\Positive(message="Seul un nombre positif est valable !")
      */
     private $amount;
 

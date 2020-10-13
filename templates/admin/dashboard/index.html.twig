@@ -14,24 +14,24 @@
                 </div>
                 <div class="panel-body">
                     <div class="col-md-3">
-                    <div class="well dash-box">
-                        <h3><span class="glyphicon glyphicon-education"></span> {{stats.kids}}</h3>
-                        <h4>Enfants inscrits</h4>
-                    </div>
-                    </div>
-
-                    <div class="col-md-3">
-                    <div class="well dash-box">
-                        <h3><span class="glyphicon glyphicon-user"></span> {{stats.donors}}</h3>
-                        <h4>Donateurs</h4>
-                    </div>
+                        <div class="well dash-box">
+                            <h3><span class="glyphicon glyphicon-education"></span> {{stats.kids}}</h3>
+                            <h4>Enfants inscrits</h4>
+                        </div>
                     </div>
 
                     <div class="col-md-3">
-                    <div class="well  dash-box">
-                        <h3><span class="glyphicon glyphicon-inbox"></span> {{stats.incomes | number_format(2, ","," ")}} &euro;</h3>
-                        <h4>Collectes</h4>
+                        <div class="well dash-box">
+                            <h3><span class="glyphicon glyphicon-user"></span> {{stats.donors}}</h3>
+                            <h4>Donateurs</h4>
+                        </div>
                     </div>
+
+                    <div class="col-md-3">
+                        <div class="well  dash-box">
+                            <h3><span class="glyphicon glyphicon-inbox"></span> {{stats.incomes | number_format(2, ","," ")}} &euro;</h3>
+                            <h4>Collectes</h4>
+                        </div>
                     </div>
 
                     <div class="col-md-3">

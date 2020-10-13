@@ -27,7 +27,7 @@ class AdminIncomeController extends AbstractController
         $incomes = $repo->findAllByDate($rechercheIncome);
 
         return $this->render('admin/income/index.html.twig', [
-            'bodyTitle' => 'Recettes',
+            'bodyTitle' => 'Collectes',
             'incomes' => $incomes,
             'form'    =>  $form->createView()
         ]);
@@ -61,7 +61,7 @@ class AdminIncomeController extends AbstractController
         }
 
         return $this->render('admin/income/new.html.twig', [
-            'bodyTitle' => 'Recettes',
+            'bodyTitle' => 'Collectes',
             'form'  => $form->createView()
         ]);        
     }
@@ -94,7 +94,7 @@ class AdminIncomeController extends AbstractController
         }
         
         return $this->render('admin/income/edit.html.twig', [
-            'bodyTitle' => 'Recettes',
+            'bodyTitle' => 'Collectes',
             'form'  => $form->createView(),
             'inco'   => $inco
         ]);

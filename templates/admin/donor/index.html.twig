@@ -50,15 +50,15 @@
         {% set pages = paginator.pages %}
         <ul class="pagination">
             <li class="{% if page == 1 %} disabled {% endif %}">
-                <a href="{{ path('admin_categoryexpense_index', {'page': page - 1})}}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+                <a href="{{ path('admin_donors_index', {'page': page - 1})}}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
             </li>
             {% for i in 1.. pages %}
             <li class=" {% if page == i %} active {% endif %}">
-                <a href="{{ path('admin_categoryexpense_index', {'page':i})}}">{{i}} <span  class="sr-only">(current)</span></a>
+                <a href="{{ path('admin_donors_index', {'page':i})}}">{{i}} <span  class="sr-only">(current)</span></a>
             </li>
             {% endfor %}            
             <li class="{% if page == pages %} disabled {% endif %}">
-                <a href="{{ path('admin_categoryexpense_index', {'page': page + 1})}}" aria-label="Next">
+                <a href="{{ path('admin_donors_index', {'page': page + 1})}}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
