@@ -17,8 +17,9 @@ DirectoryIndex index.php
     Options -MultiViews
 </IfModule>
 
-<IfModule mod_rewrite.c>    
+<IfModule mod_rewrite.c>
     RewriteEngine On
+
     # Determine the RewriteBase automatically and set it as environment variable.
     # If you are using Apache aliases to do mass virtual hosting or installed the
     # project in a subdirectory, the base path will be prepended to allow proper
@@ -51,7 +52,7 @@ DirectoryIndex index.php
     # We only want to let Apache serve files and not directories.
     # Rewrite all other queries to the front controller.
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ %{ENV:BASE}/public/index.php [L]
+    RewriteRule ^ %{ENV:BASE}/index.php [L]
 </IfModule>
 
 <IfModule !mod_rewrite.c>
