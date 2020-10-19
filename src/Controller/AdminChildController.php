@@ -87,4 +87,25 @@ class AdminChildController extends AbstractController
             'kid'   => $kid
         ]);
     }
+
+       /**
+     * Permet de supprimer un enfant
+     * 
+     * @Route("/admin/beneficiaries/delete/{id}", name="admin_beneficiaries_delete")
+     * 
+     * @return Response
+     */
+    public function delete(Child $child, EntityManagerInterface $manager)
+    {
+            $manager->remove($child);
+    
+            $manager->flush();
+    
+            $this->addFlash(
+                'success',
+                "L'enfant <strong>{$child->getFirstName()} {$child->getlastName()}</strong> a bien été supprimée !"
+            );
+
+        return $this->redirectToRoute("admin_beneficiaries_index");
+    }
 }
