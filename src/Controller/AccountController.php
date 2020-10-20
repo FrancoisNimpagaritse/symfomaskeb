@@ -2,19 +2,20 @@
 
 namespace App\Controller;
 
-use App\Entity\PasswordUpdate;
 use App\Entity\User;
 use App\Form\AccountType;
+use App\Entity\PasswordUpdate;
 use App\Form\RegistrationType;
+use App\Form\PasswordUpdateType;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AccountController extends AbstractController
 {
@@ -107,6 +108,8 @@ class AccountController extends AbstractController
                 'success', 
                 "Modification du profil réalisée avec succès !"
             );
+
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('account/profile.html.twig', [
@@ -121,14 +124,57 @@ class AccountController extends AbstractController
      * @Route("account/password-update", name="account_password")
      * @return Response
      */
-    public function updatePassword()
+    public function updatePassword(Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $manager)
     {
         $passwordUpdate = new PasswordUpdate();
-        $form = $this->createForm(PasswordType::class, $passwordUpdate);
+        $user = $this->getUser();
 
+        $form = $this->createForm(PasswordUpdateType::class, $passwordUpdate);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            //1. Vérifier que le odlPassword du formulaire soit le même que le oldPassword de user dans BD
+            if(!password_verify($passwordUpdate->getOldPassword(), $user->getHash()))
+            {
+                //Quelque chose n'est pas bien
+            } else {
+                $newPassword = $passwordUpdate->getNewPassword();
+                $newHash = $encoder->encodePassword($user, $newPassword);
+                $user->setHash($newHash);
+
+                $manager->persist($user);
+
+                $manager->flush();
+
+                $this->addFlash(
+                    'success', 
+                    "Votre mot de passe a été modifié avec succès !"
+                );
+
+                return $this->redirectToRoute('account_login');
+            }
+
+        }
         return $this->render('account/password.html.twig', [
-                        'bodyTitle' => 'Modification du mot de passe',
-                        'form'  => $form->createView()
-                    ]);
+            'bodyTitle' => 'Modification du mot de passe',
+            'form'  => $form->createView()
+        ]);
+    }
+
+    /**
+     * Permet d'afficher le profil de l'utilisateur connactéur
+     * 
+     * @Route("/account", name="account_index")
+     *
+     * @return Response
+     */
+
+    public function myAccount()
+    {
+        return $this->render('user/index.html.twig', [
+            'bodyTitle' => 'Mon profil',
+            'user'  => $this->getUser()
+        ]);
     }
 }

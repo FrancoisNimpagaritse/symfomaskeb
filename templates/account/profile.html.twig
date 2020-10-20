@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block title %}eVisio - Modification profil{% endblock %}
 
@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">                
             <div class="col-md-6 col-md-offset-3">
-                <h3>Modification du profil</h3>
+                <h3>Modification du profil utilisateur</h3>
                 {{form_start(form)}}
                 {{form_widget(form)}}
                 <button type="submit" class="btn btn-success">Valider</button>

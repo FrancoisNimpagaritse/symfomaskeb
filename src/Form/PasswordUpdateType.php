@@ -33,7 +33,7 @@ class PasswordUpdateType extends AbstractType
         $builder
             ->add('oldPassword', PasswordType::class, $this->getAttributes("Ancien mot de passe", "Saisissez votre mot de passe actuel"))
             ->add('newPassword', PasswordType::class, $this->getAttributes("Mot de passe", "Choisissez un mot de passe fort !"))
-            ->add('confirmPassword', PasswordType::class, $this->getAttributes("Confirmez mot de passe", "Cconfirmez votre mot de passe !"))
+            ->add('confirmPassword', PasswordType::class, $this->getAttributes("Confirmez mot de passe", "Confirmez votre mot de passe !"))
         ;
     }
 

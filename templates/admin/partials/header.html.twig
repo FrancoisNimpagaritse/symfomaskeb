@@ -40,9 +40,11 @@
                     <img src="" alt="">{{ app.user.firstname }}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdownLink">
-                    <a href="#" class="dropdown-item"> Mon compte</a>
-                    <div class="divider"></div>
-                    <a href="{{ path('account_logout') }}" class="dropdown-item"> Déconnexion</a>
+                    <a href="{{ path('account_index') }}" class="dropdown-item"> Mon compte</a>
+                            <div class="divider"></div>
+                    <a href="{{ path('account_profile') }}" class="dropdown-item"> Modifier mon profil</a>
+                            <div class="divider"></div>
+                    <a href="{{ path('account_logout') }}" class="dropdown-item"> Déconnexion</a>                   
                 </div>
             </li>            
             {% endif %}
