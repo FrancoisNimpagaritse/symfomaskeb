@@ -47,7 +47,7 @@ class AdminChildController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "Le nouvel enfant {$kid->getFirstname()} a bien été enregistré !"
+                "Le nouvel enfant {$kid->getFirstname()} {$kid->getLastname()} a bien été enregistré !"
             );
             return $this->redirectToRoute("admin_beneficiaries_index");
         }
