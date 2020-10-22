@@ -14,8 +14,8 @@
                     {{ kid.firstname }} {{ kid.lastname }}, <strong>{{ date('now').diff((date( kid.dateBith))).format('%y') }} ans</strong> <br>
                     <small>étudie en {{ kid.class }}ième primaire</small>
                 </div>
-                <img src="{{kid.photo}}" alt="Image de l'enfant"
-                style="height:200px; width:100%; display:block;">
+                
+                <img src="{{asset('visitor_asset/images/enfants/' ~ kid.photo)}}" style="height:350px; width:100%; display:block;">
             </div>
             <div class="card-body text-center">
                 <h4 class="card-title">

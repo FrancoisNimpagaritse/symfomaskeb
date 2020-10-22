@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ChildType extends AbstractType
@@ -99,11 +100,9 @@ class ChildType extends AbstractType
                     'placeholder' => 'Une brève description de l\'enfant'
                 ]
             ])
-            ->add('photo', TextType::class,[
+            ->add('imageFile', FileType::class,[
                 'label' =>  'Photo',
-                'attr'  => [
-                    'placeholder' => 'Photo de l\'enfant'
-                ]
+                'required' => false                
             ])
             ->add('class', TextType::class,[
                 'label' =>  'Classe actuelle',

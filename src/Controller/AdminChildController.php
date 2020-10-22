@@ -54,6 +54,7 @@ class AdminChildController extends AbstractController
 
         return $this->render('admin/child/new.html.twig', [
             'bodyTitle' => 'Enregistrement enfants',
+            'kid'   =>  $kid,
             'form'  => $form->createView()
         ]);
     }

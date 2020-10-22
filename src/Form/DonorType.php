@@ -24,7 +24,7 @@ class DonorType extends AbstractType
             ->add('type', TextType::class, [
                 'label' => 'Type',
                 'attr' => [
-                    'placeholder' => 'Donateur ou contribuable'
+                    'placeholder' => 'Donateur ou Membre'
                 ]
             ])
             ->add('adresse', TextType::class, [
@@ -46,14 +46,14 @@ class DonorType extends AbstractType
                 ]
             ])
             ->add('dateJoined', DateType::class, [
-                'label' => 'Date d\'enregistrement',
+                'label' => 'Date d\'adhésion Maskeb',
                 'widget' => 'single_text',
                 'attr' => [
-                    'placeholder' => 'Donateur ou contribuable'
+                    'placeholder' => 'Donateur ou Membre'
                 ]
             ])
             ->add('geolocalisation', TextType::class, [
-                'label' => 'Pays',
+                'label' => 'Pays de résidence',
                 'attr' => [
                     'placeholder' => 'Pays de résidence'
                 ]

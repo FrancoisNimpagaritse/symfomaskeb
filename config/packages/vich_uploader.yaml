@@ -1,0 +1,8 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        kid_image:
+            uri_prefix: /visitor_asset/images/enfants
+            upload_destination: '%kernel.project_dir%/public/visitor_asset/images/enfants'
+            namer:  Vich\UploaderBundle\Naming\SmartUniqueNamer

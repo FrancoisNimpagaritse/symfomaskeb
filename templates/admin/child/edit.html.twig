@@ -13,6 +13,9 @@
         <div>
             <div class="col-md-6">
                 {{form_start(form)}}
+                <img src="{{asset('/visitor_asset/images/enfants/' ~ kid.photo)}}" style="height:300px; width:270px; border-radius:10px;">
+                <hr>
+                {{ form_row(form.imageFile)}}
                 {{form_widget(form)}}
                 <button type="submit" class="btn btn-success">Enregister modifications</button>
                 {{form_end(form)}}

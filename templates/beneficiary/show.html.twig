@@ -5,30 +5,25 @@
 {% block body %}
 <div class="container">
     <h2 class="text-center">Notre enfant : {{ kid.firstname }} {{kid.lastname}} </h2>
-    <div class="card bg-light mb-3">
-        <div class="card-header text-center ">
-            {{ kid.firstname }} {{ kid.lastname }}, <strong>{{ date('now').diff((date( kid.dateBith))).format('%y') }} ans</strong> <br>
-            étudie en <strong> {{ kid.class }}ème</strong> primaire
-        </div>
-        <div class="text-center">
-            <img src="{{kid.photo}}" alt="Image de l'enfant"
-            style="height:300px; width:270px;">
-        </div>
-    </div>
+            <div class="card bg-light mb-3 m-auto" style="width:50%;">
+                <div class="card-header text-center ">
+                    {{ kid.firstname }} {{ kid.lastname }}, <strong>{{ date('now').diff((date( kid.dateBith))).format('%y') }} ans</strong> <br>
+                    étudie en <strong> {{ kid.class }}ème</strong> primaire
+                </div>
+                <div class="text-center p-2">
+                    <img src="{{asset('visitor_asset/images/enfants/' ~ kid.photo)}}" alt="Image de {{ kid.firstname }} {{ kid.lastname }}"
+                    style="height:300px; width:270px; border-radius:10px;">
+                </div>
+            </div>
     <div class="card-body text-center">
-        <h4 class="card-title text-center">
-            Un enfant calme et courageux!
-        </h4>
-        <p class="card-text">
-            {{ kid.description }}
-        </p>
+        <h4 class="card-title text-center">          
+            {{ kid.description }}        
+        </h4>        
         <hr>
         <div class="mb-3">
             {{kid.history}}
-        </div>
-        <hr>
+        </div>       
         <a href="{{ path('beneficiaries_index') }}" class="btn btn-primary">Retour</a>
-        <hr>
     </div>
 </div>
 {% endblock %}
