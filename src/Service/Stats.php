@@ -17,13 +17,14 @@ class Stats
     {
         $kids = $this->getKidsCount();
         $donors = $this->getDonorsCount();
-        $donorsMembers = $this->getDonorsTypeCount('Membre');
+        $donorsMembres = $this->getDonorsCount();
+        $donorsMembresLocaux = $this->getDonorsTypeAndLocalisationCount('Membre', 'Burundi');
+        $donorsMembresEtrangers = $this->getDonorsTypeAndLocalisationCount('Membre', 'France');
         $donorsTrue = $this->getDonorsTypeCount('Donateur');
-        $donors = $this->getDonorsCount();
         $incomes = $this->getIncomesTotal();
         $expenses = $this->getExpensesTotal();
 
-        return compact('kids','donors','donorsMembers','donorsTrue','incomes','expenses');
+        return compact('kids','donors', 'donorsMembres','donorsMembresLocaux', 'donorsMembresEtrangers','donorsTrue','incomes','expenses');
     }
 
     public function getKidsCount()
@@ -34,6 +35,11 @@ class Stats
     public function getDonorsCount()
     {
         return $this->manager->createQuery('SELECT COUNT(d) FROM App\Entity\Donor d')->getSingleScalarResult();
+    }
+
+    public function getDonorsTypeAndLocalisationCount($type, $localisation)
+    {
+        return $this->manager->createQuery("SELECT COUNT(d) FROM App\Entity\Donor d WHERE d.type='" . $type ."' AND d.geolocalisation='" . $localisation ."'")->getSingleScalarResult();
     }
 
     public function getDonorsTypeCount($type)
