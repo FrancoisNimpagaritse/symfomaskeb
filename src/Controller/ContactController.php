@@ -25,7 +25,7 @@ class ContactController extends AbstractController
         {
             //1. On récupère les données
             $contact = $form->getData();
-            
+            dd($contact);
             //2. On envoie le mail
             $email = (new Email())
             //On renseigne l'expéditeur
@@ -34,7 +34,6 @@ class ContactController extends AbstractController
                     ->to('franimpa@yahoo.fr')
             //On renseigne l'objet
                     ->subject('contact')
-                    ->text('sending message')
                     ->html($contact['message']);                    
                   
             $mailer->send($email);
