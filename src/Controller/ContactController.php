@@ -20,9 +20,10 @@ class ContactController extends AbstractController
     {
         $form = $this->createForm(ContactType::class);
         $form->handleRequest($request);
-
+        
         if($form->isSubmitted() && $form->isValid())
         {
+            dd("ok");
             //1. On récupère les données
             $contact = $form->getData();
             dd($contact);
@@ -33,7 +34,7 @@ class ContactController extends AbstractController
             //On renseigne le destinataire
                     ->to('franimpa@yahoo.fr')
             //On renseigne l'objet
-                    ->subject('contact')
+                    ->subject('contacter')
                     ->html($contact['message']);                    
                   
             $mailer->send($email);
